@@ -45,7 +45,7 @@ class Config(object):
     # Number of validation steps to run at the end of every training epoch.
     # A bigger number improves accuracy of validation stats, but slows
     # down the training.
-    VALIDATION_STEPS = 10
+    VALIDATION_STEPS = 50
 
     # Backbone network architecture
     # Supported values are: resnet50, resnet101.
@@ -68,9 +68,6 @@ class Config(object):
 
     # Size of the top-down layers used to build the feature pyramid
     TOP_DOWN_PYRAMID_SIZE = 256
-
-    # Number of classification classes (including background)
-    NUM_CLASSES = 1  + 1 # Override in sub-classes
 
     # Length of square anchor side in pixels
     RPN_ANCHOR_SCALES = (32, 64, 128, 256, 512)
@@ -100,8 +97,11 @@ class Config(object):
 
     # If enabled, resizes instance masks to a smaller size to reduce
     # memory load. Recommended when using high-resolution images.
-    USE_MINI_MASK = False
+    USE_MINI_MASK = True
     MINI_MASK_SHAPE = (56, 56)  # (height, width) of the mini-mask
+
+    # ETF size
+    ETF_C = 2
 
     # Input image resizing
     # Generally, use the "square" resizing mode for training and predicting
@@ -124,7 +124,7 @@ class Config(object):
     #         size IMAGE_MIN_DIM x IMAGE_MIN_DIM. Can be used in training only.
     #         IMAGE_MAX_DIM is not used in this mode.
     IMAGE_RESIZE_MODE = "square"
-    IMAGE_MIN_DIM = 1024
+    IMAGE_MIN_DIM = 800
     IMAGE_MAX_DIM = 1024
     # Minimum scaling ratio. Checked after MIN_IMAGE_DIM and can force further
     # up scaling. For example, if set to 2 then images are scaled up to double
@@ -165,7 +165,7 @@ class Config(object):
     BBOX_STD_DEV = np.array([0.1, 0.1, 0.2, 0.2])
 
     # Max number of final detections
-    DETECTION_MAX_INSTANCES = 35
+    DETECTION_MAX_INSTANCES = 100
 
     # Minimum probability value to accept a detected instance
     # ROIs below this threshold are skipped
@@ -225,19 +225,12 @@ class Config(object):
 
         # Image meta data length
         # See compose_image_meta() for details
-        self.IMAGE_META_SIZE = 1 + 3 + 3 + 4 + 1 + self.NUM_CLASSES
-
-    def to_dict(self):
-        return {a: getattr(self, a)
-                for a in sorted(dir(self))
-                if not a.startswith("__") and not callable(getattr(self, a))}
+        self.IMAGE_META_SIZE = 1 + 3 + 3 + 4 + 1 + self.ETF_C
 
     def display(self):
         """Display Configuration values."""
         print("\nConfigurations:")
-        for key, val in self.to_dict().items():
-            print(f"{key:30} {val}")
-        # for a in dir(self):
-        #     if not a.startswith("__") and not callable(getattr(self, a)):
-        #         print("{:30} {}".format(a, getattr(self, a)))
+        for a in dir(self):
+            if not a.startswith("__") and not callable(getattr(self, a)):
+                print("{:30} {}".format(a, getattr(self, a)))
         print("\n")
