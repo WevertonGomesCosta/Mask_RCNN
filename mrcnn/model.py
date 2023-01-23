@@ -7,7 +7,7 @@ Licensed under the MIT License (see LICENSE for details)
 Written by Waleed Abdulla
 """
 
-from mrcnn_demo.config import Config
+from mrcnn.config import Config
 import os
 import random
 import datetime
