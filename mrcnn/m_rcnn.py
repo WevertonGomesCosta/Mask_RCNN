@@ -354,7 +354,7 @@ def test_random_image(test_model, dataset_val, inference_config):
     results = test_model.detect([original_image], verbose=1)
     r = results[0]
     visualize.display_instances(original_image, r['rois'], r['masks'], r['class_ids'],
-                                dataset_val.class_names, r['scores'], ax=get_ax(), show_bbox=False)
+                                dataset_val.class_names, r['scores'], show_bbox=False)
 
     print("Annotation")
     visualize.display_instances(original_image, gt_bbox, gt_mask, gt_class_id,
