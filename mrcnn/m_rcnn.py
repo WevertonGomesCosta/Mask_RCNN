@@ -17,11 +17,11 @@ import zipfile
 ROOT_DIR = os.path.abspath("/content/Pig-weight-calculation-by-Mask-R-CNN-Keras-and-TensorFlow")
 # Import Mask RCNN
 sys.path.append(ROOT_DIR)  # To find local version of the library
-from mrcnn_demo.config import Config
-from mrcnn_demo import utils
-import mrcnn_demo.model as modellib
-from mrcnn_demo import visualize
-from mrcnn_demo.model import log
+from mrcnn.config import Config
+from mrcnn import utils
+import mrcnn.model as modellib
+from mrcnn import visualize
+from mrcnn.model import log
 from PIL import Image, ImageDraw
 
 import warnings
