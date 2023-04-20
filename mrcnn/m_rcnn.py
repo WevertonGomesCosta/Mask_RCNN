@@ -71,7 +71,7 @@ class CustomConfig(Config):
     # TRAIN_ROIS_PER_IMAGE = 32
 
     # Use a small epoch since the data is simple
-    STEPS_PER_EPOCH = 200
+    STEPS_PER_EPOCH = 100
 
     # use small validation steps since the epoch is small
     VALIDATION_STEPS = 20
@@ -264,7 +264,7 @@ def load_image_dataset(annotation_path, dataset_path, dataset_type):
 def train_head(model, dataset_train, dataset_val, config):
     model.train(dataset_train, dataset_val,
             learning_rate=config.LEARNING_RATE,
-            epochs=20,
+            epochs=10,
             layers='heads')
 
 
