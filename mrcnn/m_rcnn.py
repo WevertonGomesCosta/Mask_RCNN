@@ -74,7 +74,7 @@ class CustomConfig(Config):
     STEPS_PER_EPOCH = 200
 
     # use small validation steps since the epoch is small
-    VALIDATION_STEPS = 5
+    VALIDATION_STEPS = 20
 
     ETF_C = 2
 
