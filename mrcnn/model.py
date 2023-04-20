@@ -2171,16 +2171,16 @@ class MaskRCNN():
         """Gets the model ready for training. Adds losses, regularization, and
         metrics. Then calls the Keras compile() function.
         """
-	
-        # Optimizer object
+	self.keras_model.metrics.clear()
+	# Optimizer object
         optimizer = tf.keras.optimizers.SGD(
             learning_rate=learning_rate, momentum=momentum,
             clipnorm=self.config.GRADIENT_CLIP_NORM)
         # Add Losses
         # First, clear previously set losses to avoid duplication
-	self.keras_model.metrics.clear()
+	
         self.keras_model._losses.clear()
-        #self.keras_model._losses = []
+	#self.keras_model._losses = []
         #self.keras_model._per_input_losses = {}
         loss_names = [
             "rpn_class_loss",  "rpn_bbox_loss",
